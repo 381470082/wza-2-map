@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <style type="text/css">
+    body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+    #panorama {width:100%; height: 713px;}
+    #result {width:100%;font-size:12px;}
+    .BMap_cpyCtrl {
+            display: none;
+        }
+        .anchorBL {
+            display: none;
+        }
+        .anchorBL img{
+          display: none;
+
+        }
+  </style>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak=H5ZOGO7FlAB3LKf6lrgAtllmhkubBtwc"></script>
+  <title>添加全景标注点</title>
+</head>
+<body>
+  <div id="panorama"></div>
+  <div id="result">
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+  var panorama = new BMap.Panorama('panorama');
+  panorama.setPosition(new BMap.Point(126.634707,45.713341));//坐标点在天安门
+
+  var labelPosition = new BMap.Point(126.634707,45.713341);
+  var labelOptions = {
+      position: labelPosition,
+      altitude: 2
+  };//设置标注点的经纬度位置和高度
+  var label = new BMap.PanoramaLabel('艺术楼：是我们陶冶我们情操，学习艺术的地方——————来自宇昂地图', labelOptions);
+  panorama.addOverlay(label);//在全景地图里添加该标注
+  panorama.setPov(label.getPov()); //修改点的视角，朝向该label
+
+  label.addEventListener('click', function() { //给标注点注册点击事件
+    panorama.setPov({  //修改点的视角
+      pitch: 10, 
+      heading: 14
+    });
+  });
+</script>
+
